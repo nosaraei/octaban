@@ -7,7 +7,12 @@ table {
     background-color: @table-bg;
 }
 th {
-    text-align: left;
+    & when(@rtl){
+        text-align: right;
+    }
+    & when(@rtl = false){
+        text-align: left;
+    }
 }
 
 // Baseline styles

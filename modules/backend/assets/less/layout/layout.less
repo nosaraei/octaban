@@ -29,6 +29,9 @@ body.no-select {
 html,
 body {
     height: 100%;
+    & when(@rtl){
+        direction: rtl;
+    }
     /* The html and body elements cannot have any padding or margin. */
 }
 
@@ -42,6 +45,15 @@ body {
 #layout-canvas {
     min-height: 100%;
     height: 100%;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    & when(@rtl){
+        right: 0;
+    }
+    & when(@rtl = false){
+        left: 0;
+    }
 }
 
 //

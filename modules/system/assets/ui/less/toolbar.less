@@ -32,11 +32,22 @@
         white-space: nowrap;
         display: table-cell;
         vertical-align: top;
-        padding-right: 20px;
 
-        &:last-child,
-        &.last {
-            padding-right: 0;
+        & when(@rtl){
+            padding-left: 20px;
+
+            &:last-child,
+            &.last {
+                padding-left: 0;
+            }
+        }
+        & when(@rtl = false){
+            padding-right: 20px;
+
+            &:last-child,
+            &.last {
+                padding-right: 0;
+            }
         }
 
         .horizontal-scroll-indicators(@color-scroll-indicator);

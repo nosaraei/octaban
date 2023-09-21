@@ -12,11 +12,23 @@
 
         <?php
         $coreBuild = System\Models\Parameter::get('system::core.build', 1);
-        $styles = [
-            Url::asset('modules/system/assets/ui/storm.css'),
-            Url::asset('modules/system/assets/ui/icons.css'),
-            Backend::skinAsset('assets/css/winter.css'),
-        ];
+        $backend_lang = App::getLocale();
+
+        if(in_array($backend_lang, ["fa", "fa-kr"])){
+            $styles = [
+                Url::asset('modules/system/assets/ui/storm-rtl.css'),
+                Url::asset('modules/system/assets/ui/icons.css'),
+                Backend::skinAsset('assets/less/winter-rtl.css')
+            ];
+        }
+        else{
+            $styles = [
+                Url::asset('modules/system/assets/ui/storm-ltr.css'),
+                Url::asset('modules/system/assets/ui/icons.css'),
+                Backend::skinAsset('assets/less/winter-ltr.css')
+            ];
+        }
+
         $scripts = [
             Backend::skinAsset('assets/js/vendor/jquery.min.js'),
             Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js'),
@@ -24,7 +36,7 @@
             Url::asset('modules/system/assets/ui/storm-min.js'),
             Backend::skinAsset('assets/js/winter-min.js'),
             Url::asset('modules/backend/assets/js/auth/auth.js'),
-            Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
+                Url::asset('modules/system/assets/js/lang/lang.'.$backend_lang.'.js'),
         ];
         ?>
 

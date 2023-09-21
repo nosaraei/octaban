@@ -44,7 +44,7 @@
                 self.body.addClass(self.options.bodyMenuOpenClass)
                 self.menuContainer.css('display', 'block')
 
-                self.wrapper.animate({'left': self.options.menuWidth}, { duration: 200, queue: false })
+                //self.wrapper.animate({'left': self.options.menuWidth}, { duration: 200, queue: false })
                 self.menuPanel.animate({'width': self.options.menuWidth}, {
                     duration: 200,
                     queue: false,
@@ -104,7 +104,7 @@
             self.wrapper.css({
                 'position': 'static',
                 'min-width': 0,
-                'right': 0,
+                //'right': 0,
                 'height': '100%'
             })
             self.menuPanel.css('width', 0)
@@ -116,7 +116,7 @@
          * Internal event, smoothly collapses the menu
          */
         function closeMenu() {
-            self.wrapper.animate({'left': 0}, { duration: 200, queue: false})
+            //self.wrapper.animate({'left': 0}, { duration: 200, queue: false})
             self.menuPanel.animate({'width': 0}, { duration: 200, queue: false, complete: hideMenu })
             self.menuElement.animate({'width': 0}, { duration: 200, queue: false })
         }

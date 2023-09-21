@@ -14,12 +14,24 @@
 <?php
 $coreBuild = System\Models\Parameter::get('system::core.build', 1);
 
+$backend_lang = App::getLocale();
+
 // Styles
-$styles = [
-    Url::asset('modules/system/assets/ui/storm.css'),
-    Url::asset('modules/system/assets/ui/icons.css'),
-    Backend::skinAsset('assets/css/winter.css'),
-];
+
+if(in_array($backend_lang, ["fa", "fa-kr"])){
+    $styles = [
+        Url::asset('modules/system/assets/ui/storm-rtl.css'),
+        Url::asset('modules/system/assets/ui/icons.css'),
+        Backend::skinAsset('assets/less/winter-rtl.css'),
+    ];
+}
+else{
+    $styles = [
+        Url::asset('modules/system/assets/ui/storm-ltr.css'),
+        Url::asset('modules/system/assets/ui/icons.css'),
+        Backend::skinAsset('assets/less/winter-ltr.css'),
+    ];
+}
 
 // Scripts
 $scripts = [
@@ -37,17 +49,19 @@ $scripts = [
     Url::asset('modules/backend/assets/ui/js/build/vendor.js'),
     Url::asset('modules/backend/assets/ui/js/build/backend.js'),
 ];
-if (Config::get('develop.decompileBackendAssets', false)) {
+if(Config::get('develop.decompileBackendAssets', false)){
     $scripts = array_merge($scripts, Backend::decompileAsset('modules/system/assets/ui/storm.js'));
     $scripts = array_merge($scripts, Backend::decompileAsset('assets/js/winter.js', true));
-} else {
+}
+else{
     $scripts = array_merge($scripts, [Url::asset('modules/system/assets/ui/storm-min.js')]);
     $scripts = array_merge($scripts, [Backend::skinAsset('assets/js/winter-min.js')]);
 }
 $scripts = array_merge($scripts, [
-    Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
+    Url::asset('modules/system/assets/js/lang/lang.' . $backend_lang . '.js'),
     Backend::skinAsset('assets/js/winter.flyout.js'),
     Backend::skinAsset('assets/js/winter.tabformexpandcontrols.js'),
+    Backend::skinAsset('assets/js/bulk-actions.js'),
 ]);
 ?>
 

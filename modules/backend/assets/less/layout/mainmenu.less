@@ -14,6 +14,14 @@
 body.mainmenu-open {
     overflow: hidden;
     position: fixed;
+    #layout-canvas {
+        & when(@rtl){
+            right: 230px;
+        }
+        & when(@rtl = false){
+            left: 230px;
+        }
+    }
 }
 
 .mainmenu-item-link() {
@@ -109,7 +117,12 @@ ul.mainmenu-nav {
 
 nav#layout-mainmenu {
     background-color: @color-mainmenu;
-    padding: 0 0 0 20px;
+    & when(@rtl){
+        padding: 0 20px 0 0;
+    }
+    & when(@rtl = false){
+        padding: 0 0 0 20px;
+    }
     line-height: 0;
     white-space: nowrap;
     display: flex;
@@ -125,7 +138,12 @@ nav#layout-mainmenu {
         margin: 0;
         padding: 0;
         list-style: none;
-        float: left;
+        & when(@rtl){
+            float: right;
+        }
+        & when(@rtl = false){
+            float: left;
+        }
         white-space: nowrap;
         overflow: hidden;
 
@@ -372,7 +390,12 @@ nav#layout-mainmenu.navbar-mode-inline_no_icons {
                 .nav-icon {
                     position: relative;
                     top: -1px;
-                    margin-right: 5px;
+                    & when(@rtl){
+                        margin-left: 5px;
+                    }
+                    & when(@rtl = false){
+                        margin-right: 5px;
+                    }
                     width: @mainmenu-icon-dimension;
                     height: @mainmenu-icon-dimension;
                     i, img { margin: 0; }
