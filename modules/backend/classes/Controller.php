@@ -22,6 +22,7 @@ use Winter\Storm\Exception\ApplicationException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller as ControllerBase;
+use BackendMenu;
 
 /**
  * The Backend base controller class, used by Backend controllers.
@@ -159,7 +160,65 @@ class Controller extends ControllerBase
         }
 
         $this->extendableConstruct();
+
+
+        // Nosaraei Start
+
+        if(!empty($this->actionPermissions[$this->action])){
+
+            $this->checkPageAccess($this->actionPermissions[$this->action], !empty($this->params[0])?$this->params[0]:null);
+        }
+
+        $actionMenu = null;
+        if(!empty($this->actionMenu[$this->action])){
+            $actionMenu = $this->actionMenu[$this->action];
+        }
+        else if(!empty($this->actionMenu["*"])){
+            $actionMenu = $this->actionMenu["*"];
+        }
+
+        if($actionMenu){
+            BackendMenu::setContext($actionMenu[0], $actionMenu[1], !empty($actionMenu[2])?$actionMenu[2]:null);
+        }
+
+        // Nosaraei End
     }
+
+    // Nosaraei Start
+
+    public function checkPageAccess($permission, $id = null){
+
+        if($this->user && $this->user->hasAnyAccess($permission)){
+
+            if($id){
+
+                $model = $this->createModel();
+                $model = $this->checkScopeAllowedRecords($model);
+                $record = $model->where("id", $id)->first();
+                if(!$record){
+                    return $this->renderAccessDenied();
+                }
+            }
+
+        }
+        else{
+            return $this->renderAccessDenied();
+        }
+    }
+
+    public function renderAccessDenied(){
+
+        $this->requiredPermissions = ["no_access"];
+        return Response::make(View::make('backend::access_denied'), 403);
+
+    }
+
+    protected function checkScopeAllowedRecords($query){
+
+        return $query;
+    }
+
+    // Nosaraei End
 
     public function __get($name)
     {
