@@ -71,7 +71,11 @@
     cursor: pointer; }
 
 .select2-container--open .select2-dropdown {
-  left: 0; }
+    & when(@rtl){
+        direction: rtl;
+    }
+  left: 0;
+}
 
 .select2-container--open .select2-dropdown--above {
   border-bottom: none;

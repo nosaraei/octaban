@@ -143,16 +143,78 @@
         float: left;
     }
 
-    &.span-left {
-        float: left;
+    &.span-left, &.span-right {
         width: 48.5%;
-        clear: left;
     }
 
-    &.span-right {
-        float: right;
-        width: 48.5%;
-        clear: right;
+    &.span-left-left,
+    &.span-right-left,
+    &.span-left-right,
+    &.span-right-right {
+        width: 22.75%;
+    }
+
+    & when(@rtl){
+        &.span-left {
+            float: right;
+            clear: right;
+        }
+
+        &.span-right {
+            float: left;
+            clear: left;
+        }
+
+        &.span-left-left {
+            float: right;
+        }
+
+        &.span-left-right {
+            float: right;
+            margin-right: 3%;
+        }
+
+        &.span-right-right {
+            float: left;
+            clear: left;
+        }
+
+        &.span-right-left {
+            float: right;
+            margin-right: 3%;
+            clear: left;
+        }
+    }
+    & when(@rtl = false){
+        &.span-left {
+            float: left;
+            clear: left;
+        }
+
+        &.span-right {
+            float: right;
+            clear: right;
+        }
+
+        &.span-left-left {
+            float: left;
+        }
+
+        &.span-left-right {
+            float: left;
+            margin-left: 3%;
+        }
+
+        &.span-right-right {
+            float: right;
+            clear: right;
+        }
+
+        &.span-right-left {
+            float: left;
+            margin-left: 3%;
+            clear: right;
+        }
     }
 
     &.clear-full {
@@ -461,26 +523,56 @@
     padding-bottom: @padding-standard;
     font-size: 0;
 
-    .btn {
-        margin-right: 15px;
-
-        &.no-margin-right {
-            margin-right: 0;
-        }
-    }
-
-    .btn-group {
-        margin-right: 10px;
+    & when(@rtl = false){
 
         .btn {
-            margin-right: 0;
+            margin-right: 15px;
+
+            &.no-margin-right {
+                margin-right: 0;
+            }
         }
+
+        .btn-group {
+            margin-right: 10px;
+
+            .btn {
+                margin-right: 0;
+            }
+        }
+
+        .pull-right {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
     }
 
-    .pull-right {
-        margin-right: 0;
-        margin-left: 10px;
+    & when(@rtl){
+
+        .btn {
+            margin-left: 15px;
+
+            &.no-margin-right {
+                margin-left: 0;
+            }
+        }
+
+        .btn-group {
+            margin-left: 10px;
+
+            .btn {
+                margin-left: 0;
+            }
+        }
+
+        .pull-right {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+
     }
+
 
     &.buttons-offset {
         padding-left: 20px;

@@ -221,7 +221,12 @@
             padding: 7px 15px;
 
             &:before {
-                margin-right: 8px;
+                & when(@rtl = false){
+                    margin-right: 8px;
+                }
+                & when(@rtl){
+                    margin-left: 8px;
+                }
                 display: inline-block;
                 vertical-align: baseline;
             }

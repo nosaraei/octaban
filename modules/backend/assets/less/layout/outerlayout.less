@@ -58,7 +58,12 @@ body.outer {
 
                         input {
                             vertical-align: top;
-                            margin-right: 9px;
+                            & when(@rtl = false){
+                                margin-right: 9px;
+                            }
+                            & when(@rtl){
+                                margin-left: 9px;
+                            }
                             display: inline-block;
                             border: none;
                             .border-radius(2px);

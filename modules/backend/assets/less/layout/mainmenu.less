@@ -298,7 +298,12 @@ html.svg {
 nav#layout-mainmenu ul li .mainmenu-accountmenu {
     position: fixed;
     top: 0; // See mode for this value
-    right: @padding-standard;
+    & when(@rtl = false){
+        right: @padding-standard;
+    }
+    & when(@rtl){
+        left: @padding-standard;
+    }
     background: @color-accountmenu-bg;
     z-index: @zindex-popover;
     display: none;
@@ -311,7 +316,12 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
 
     &:after {
         .triangle(up, 17px, 7px, @color-accountmenu-bg);
-        right: 9px;
+        & when(@rtl = false){
+            right: 9px;
+        }
+        & when(@rtl){
+            left: 9px;
+        }
         top: -7px;
         position: absolute;
     }

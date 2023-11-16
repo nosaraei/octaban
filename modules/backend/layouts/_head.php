@@ -18,12 +18,13 @@ $backend_lang = App::getLocale();
 
 // Styles
 
-if(in_array($backend_lang, ["fa", "fa-kr"])){
+if(Backend::rtl($backend_lang)){
     $styles = [
         Url::asset('modules/system/assets/ui/storm-rtl.css'),
         Url::asset('modules/system/assets/ui/icons.css'),
         Backend::skinAsset('assets/less/winter-rtl.css'),
     ];
+    echo '<script type="text/javascript">var rtl = true;</script>';
 }
 else{
     $styles = [
@@ -31,6 +32,7 @@ else{
         Url::asset('modules/system/assets/ui/icons.css'),
         Backend::skinAsset('assets/less/winter-ltr.css'),
     ];
+    echo '<script type="text/javascript">var rtl = false;</script>';
 }
 
 // Scripts

@@ -37,7 +37,14 @@
 
 .custom-checkbox,
 .custom-radio {
-    padding-left: 23px;
+    & when(@rtl = false){
+        padding-left: 23px;
+        padding-right: 0;
+    }
+    & when(@rtl){
+        padding-right: 23px;
+        padding-left: 0;
+    }
     margin-top: 0;
 
     // Element needs to be present for browser based validation to work
@@ -54,9 +61,16 @@
         display: inline-block;
         cursor: pointer;
         position: relative;
-        padding-left: 25px;
-        margin-right: 15px;
-        margin-left: -20px;
+        & when(@rtl = false){
+            padding-left: 25px;
+            margin-right: 15px;
+            margin-left: -20px;
+        }
+        & when(@rtl){
+            padding-right: 25px;
+            margin-left: 15px;
+            margin-right: -20px;
+        }
         font-size: @label-font-size;
         .user-select(none);
 
@@ -68,10 +82,15 @@
 
             width: 18px;
             height: 18px;
-
-            margin-right: 15px;
+            & when(@rtl = false){
+                margin-right: 15px;
+                left: -3px;
+            }
+            & when(@rtl){
+                margin-left: 15px;
+                right: -3px;
+            }
             position: absolute;
-            left: -3px;
             top: 0;
             background-color: #FFFFFF;
             border: 1px solid @color-checkbox-border;

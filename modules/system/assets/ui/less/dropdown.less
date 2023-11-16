@@ -94,14 +94,27 @@
                     &[class*=" wn-icon-"],
                     &[class^="oc-icon-"],
                     &[class*=" oc-icon-"] {
-                        padding-left: 30px;
+                        & when(@rtl = false){
+                            padding-left: 30px;
 
-                        &:before {
-                            position: absolute;
-                            font-size: 14px;
-                            left: 9px;
-                            top: 8px;
-                            color: fade(@dropdown-link-color, 60%);
+                            &:before {
+                                position: absolute;
+                                font-size: 14px;
+                                left: 9px;
+                                top: 8px;
+                                color: fade(@dropdown-link-color, 60%);
+                            }
+                        }
+                        & when(@rtl){
+                            padding-right: 30px;
+
+                            &:before {
+                                position: absolute;
+                                font-size: 14px;
+                                right: 9px;
+                                top: 8px;
+                                color: fade(@dropdown-link-color, 60%);
+                            }
                         }
                     }
                 }

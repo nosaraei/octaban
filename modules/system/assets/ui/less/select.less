@@ -36,6 +36,9 @@
 
 .select2-container--default {
     display: block;
+    & when(@rtl){
+        direction: rtl;
+    }
 
     .select2-selection {
         .select-input-defaults();
@@ -253,15 +256,24 @@
     .select2-selection--single {
         height: @input-height-base;
         line-height: @line-height-base;
-        padding: @padding-base-vertical @padding-base-horizontal + @caret-width-base*3 @padding-base-vertical @padding-base-horizontal;
-
+        & when(@rtl = false){
+            padding: @padding-base-vertical @padding-base-horizontal + @caret-width-base*3 @padding-base-vertical @padding-base-horizontal;
+        }
+        & when(@rtl){
+            padding: @padding-base-vertical @padding-base-horizontal @padding-base-vertical @padding-base-horizontal + @caret-width-base*3;
+        }
         //
         // Adjust the single Select2's dropdown arrow button appearance.
         //
         .select2-selection__arrow {
             position: absolute;
             bottom: 0;
-            right: @padding-base-horizontal;
+            & when(@rtl = false){
+                right: @padding-base-horizontal;
+            }
+            & when(@rtl){
+                left: @padding-base-horizontal;
+            }
             top: 0;
             width: @caret-width-base;
 
@@ -270,7 +282,12 @@
                 top: 50%;
                 height: 9px;
                 width: 8px;
-                right: 3px;
+                & when(@rtl = false){
+                    right: 3px;
+                }
+                & when(@rtl){
+                    left: 3px;
+                }
                 margin-top: -5px;
                 line-height: 9px;
                 &:before {
@@ -383,7 +400,12 @@
             font-size: @font-size-small;
             height: @input-height-small;
             line-height: @line-height-small;
-            padding: @padding-small-vertical @padding-small-horizontal + @caret-width-base*3 @padding-small-vertical @padding-small-horizontal;
+            & when(@rtl = false){
+                padding: @padding-small-vertical @padding-small-horizontal + @caret-width-base*3 @padding-small-vertical @padding-small-horizontal;
+            }
+            & when(@rtl){
+                padding: @padding-small-vertical @padding-small-horizontal @padding-small-vertical @padding-small-horizontal + @caret-width-base*3;
+            }
 
             /* 2 */
             .select2-selection__arrow b {

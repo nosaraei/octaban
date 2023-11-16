@@ -6,6 +6,7 @@ use Html;
 use Config;
 use Request;
 use Redirect;
+use App;
 use Exception;
 use Winter\Storm\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
@@ -278,5 +279,15 @@ class Backend
         }
 
         return $results;
+    }
+
+    public function rtl($lang = null){
+
+        $rtl = ["fa", "fa-kr"];
+
+        if(!$lang)
+            $lang = App::getLocale();
+
+        return in_array($lang, $rtl);
     }
 }

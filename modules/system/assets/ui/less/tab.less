@@ -245,6 +245,7 @@
             position: relative;
             margin-left: 0;
             margin-right: 0;
+            padding-inline-start: 0;
 
             &:before {
                 position: absolute;
@@ -259,16 +260,30 @@
             > li {
                 padding-right: 0;
                 padding-left: 0;
-                margin-left: 0;
-                margin-right: -20px;
                 background: transparent;
-
-                &:first-child {
-                    padding-left: @padding-standard !important;
+                & when(@rtl = false){
+                    margin-left: 0;
+                    margin-right: -20px;
+                    &:first-child {
+                        padding-left: @padding-standard !important;
+                    }
+                    &:last-child {
+                        background-image: none;
+                        margin-right: 0;
+                        padding-right: 5px;
+                    }
                 }
-
-                &:last-child {
+                & when(@rtl){
                     margin-right: 0;
+                    margin-left: -20px;
+                    &:first-child {
+                        padding-right: @padding-standard !important;
+                    }
+                    &:last-child {
+                        background-image: none;
+                        margin-left: 0;
+                        padding-left: 5px;
+                    }
                 }
 
                 a {
@@ -314,16 +329,6 @@
                             .transform( ~'skewX(20deg)');
                         }
                     }
-                }
-
-                &:last-child {
-                    background-image: none;
-                    margin-right: 0;
-                    padding-right: 5px;
-                }
-
-                &:first-child {
-                    padding-left: 0;
                 }
 
                 &.active a {

@@ -40,6 +40,48 @@
             &.last {
                 padding-left: 0;
             }
+
+            &:before { right: -10px; }
+            &:after { left: 6px; }
+
+            .btn, .btn-group, .dropdown {
+                white-space: nowrap;
+                float: none;
+                display: inline-block;
+                margin-left: 10px;
+
+                &:last-child {
+                    margin-left: 0;
+                }
+
+                &.standalone {
+                    margin-left: 15px;
+                }
+            }
+
+            .dropdown > .btn {
+                margin-left: 0;
+            }
+
+            .btn-group {
+                > .btn, > .dropdown {
+                    margin-left: 0;
+                    display: inline-block;
+                    float: none;
+                }
+
+                .dropdown {
+                    > .btn {
+                        margin-left: 0;
+                        .border-left-radius(0);
+                    }
+
+                    &.last > .btn {
+                        .border-left-radius(@border-radius-base) !important;
+                    }
+                }
+            }
+
         }
         & when(@rtl = false){
             padding-right: 20px;
@@ -48,50 +90,52 @@
             &.last {
                 padding-right: 0;
             }
+
+            &:before { left: -10px; }
+            &:after { right: 6px; }
+
+            .btn, .btn-group, .dropdown {
+                white-space: nowrap;
+                float: none;
+                display: inline-block;
+                margin-right: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.standalone {
+                    margin-right: 15px;
+                }
+            }
+
+            .dropdown > .btn {
+                margin-right: 0;
+            }
+
+            .btn-group {
+                > .btn, > .dropdown {
+                    margin-right: 0;
+                    display: inline-block;
+                    float: none;
+                }
+
+                .dropdown {
+                    > .btn {
+                        margin-right: 0;
+                        .border-right-radius(0);
+                    }
+
+                    &.last > .btn {
+                        .border-right-radius(@border-radius-base) !important;
+                    }
+                }
+            }
         }
 
         .horizontal-scroll-indicators(@color-scroll-indicator);
 
-        &:before { left: -10px; }
-        &:after { right: 6px; }
 
-        .btn, .btn-group, .dropdown {
-            white-space: nowrap;
-            float: none;
-            display: inline-block;
-            margin-right: 10px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            &.standalone {
-                margin-right: 15px;
-            }
-        }
-
-        .dropdown > .btn {
-            margin-right: 0;
-        }
-
-        .btn-group {
-            > .btn, > .dropdown {
-                margin-right: 0;
-                display: inline-block;
-                float: none;
-            }
-
-            .dropdown {
-                > .btn {
-                    margin-right: 0;
-                    .border-right-radius(0);
-                }
-
-                &.last > .btn {
-                    .border-right-radius(@border-radius-base) !important;
-                }
-            }
-        }
     }
 
     input.form-control[type=text] {
@@ -254,14 +298,24 @@ html.mobile {
         }
 
         .toolbar-item {
-            padding-right: 0;
+            & when(@rtl = false){
+                padding-right: 0;
+            }
+            & when(@rtl){
+                padding-left: 0;
+            }
         }
 
         .btn {
             .border-radius(0)!important;
             padding-top: 12px;
             padding-bottom: 13px;
-            margin-right: 0;
+            & when(@rtl = false){
+                margin-right: 0;
+            }
+            & when(@rtl){
+                margin-left: 0;
+            }
         }
 
         input.form-control {

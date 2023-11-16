@@ -340,7 +340,12 @@
         }
 
         .status-label {
-            float: right;
+            & when(@rtl = false){
+                float: right;
+            }
+            & when(@rtl){
+                float: left;
+            }
             display: inline-block;
             padding: 1px 5px;
             .border-radius(@border-radius-base);

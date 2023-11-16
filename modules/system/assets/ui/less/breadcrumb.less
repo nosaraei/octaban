@@ -28,7 +28,12 @@
         font-size: @font-size-base;
         list-style: none;
         margin: 0;
-        padding:  12px 10px 12px 30px;
+        & when(@rtl){
+            padding: 12px 30px 12px 10px;
+        }
+        & when(@rtl = false){
+            padding:  12px 10px 12px 30px;
+        }
         display: inline-block;
         position: relative;
         color: @color-breadcrumb-text;
@@ -43,23 +48,41 @@
 
         &:before, &:after {
             top: 0;
-            right: -14px;
             position: absolute;
             z-index: @zindex-breadcrumb;
         }
 
-        &:after {
-            .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
-        }
+        & when(@rtl){
+            &:after {
+                left: -14px;
+                .triangle(left, 15px, 45px, @color-breadcrumb-inactive-background);
+            }
 
-        &:before {
-            right: -15px;
-            z-index: @zindex-breadcrumb - 1;
-            .triangle(right, 15px, 45px, @color-breadcrumb-background);
-        }
+            &:before {
+                left: -15px;
+                z-index: @zindex-breadcrumb - 1;
+                .triangle(left, 15px, 45px, @color-breadcrumb-background);
+            }
 
-        &:first-child {
-            padding-left: 20px;
+            &:first-child {
+                padding-right: 20px;
+            }
+        }
+        & when(@rtl = false){
+            &:after {
+                right: -14px;
+                .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
+            }
+
+            &:before {
+                right: -15px;
+                z-index: @zindex-breadcrumb - 1;
+                .triangle(right, 15px, 45px, @color-breadcrumb-background);
+            }
+
+            &:first-child {
+                padding-left: 20px;
+            }
         }
 
         &:last-child:after {

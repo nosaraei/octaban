@@ -13,5 +13,5 @@
     <?= $scope->ignoreTimezone ? 'data-ignore-timezone' : ''; ?>
 >
     <span class="filter-label"><?= e(trans($scope->label)) ?>:</span>
-    <span class="filter-setting"><?= isset($afterStr) && isset($beforeStr) ? ($afterStr . ' → ' . $beforeStr) : e(trans('backend::lang.filter.date_all')) ?></span>
+    <span class="filter-setting"><?= isset($afterStr) && isset($beforeStr) ? ($afterStr . (Backend::rtl() ? ' ← ' : ' → ') . $beforeStr) : e(trans('backend::lang.filter.date_all')) ?></span>
 </a>

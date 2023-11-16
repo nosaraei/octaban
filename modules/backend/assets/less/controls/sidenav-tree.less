@@ -16,7 +16,12 @@
             .box-shadow(inset -3px 0 3px rgba(0,0,0,0.1));
 
             &.search {
-                background-position: right -78px;
+                & when(@rtl = false){
+                    background-position: right -78px;
+                }
+                & when(@rtl){
+                    background-position: left -78px;
+                }
             }
         }
     }
@@ -35,7 +40,12 @@
         &[data-status=collapsed] {
             > div.group {
                 h3:before {
-                    .transform(~'rotate(0deg) translate(2px, -2px)');
+                    & when(@rtl = false){
+                        .transform(~'rotate(0deg) translate(2px, -2px)');
+                    }
+                    & when(@rtl){
+                        .transform(~'rotate(180deg) translate(2px, -7px)');
+                    }
                 }
 
                 // Hide triangle
@@ -57,7 +67,13 @@
                 color: @color-sidebarnav-tree-group;
                 text-transform: uppercase;
                 font-size: 15px;
-                padding: 15px 15px 15px 40px;
+                & when(@rtl = false){
+                    padding: 15px 15px 15px 40px;
+                }
+                & when(@rtl){
+                    padding: 15px 40px 15px 15px;
+                }
+
                 margin: 0;
                 position: relative;
                 cursor: pointer;
@@ -68,13 +84,20 @@
                     position: absolute;
                     width: 10px;
                     height: 10px;
-                    left: 16px;
                     top: 15px;
                     color: @color-list-arrow;
                     .icon(@angle-right);
-                    .transform(~'rotate(90deg) translate(5px, -3px)');
                     .transition(all 0.1s ease);
                     font-size: 16px;
+
+                    & when(@rtl = false){
+                        left: 16px;
+                        .transform(~'rotate(90deg) translate(5px, -3px)');
+                    }
+                    & when(@rtl){
+                        right: 16px;
+                        .transform(~'rotate(90deg) translate(2px, -2px)');
+                    }
                 }
             }
 
@@ -83,7 +106,12 @@
             &:after {
                 .triangle(down, 15px, 8px, @brand-primary);
                 position: absolute;
-                left: 15px;
+                & when(@rtl = false){
+                    left: 15px;
+                }
+                & when(@rtl){
+                    right: 15px;
+                }
                 bottom: -8px;
                 z-index: 101;
             }
@@ -99,7 +127,12 @@
                 a {
                     display: block;
                     position: relative;
-                    padding: 18px 25px 18px 55px;
+                    & when(@rtl = false){
+                        padding: 18px 25px 18px 55px;
+                    }
+                    & when(@rtl){
+                        padding: 18px 55px 18px 25px;
+                    }
                     background: @color-sidebarnav-tree-inactive-bg;
                     border-bottom: 1px solid @color-sidebarnav-tree-group-bg;
                     color: @color-sidebarnav-tree-inactive-text;
@@ -114,7 +147,12 @@
 
                     i {
                         position: absolute;
-                        left: 16px;
+                        & when(@rtl = false){
+                            left: 16px;
+                        }
+                        & when(@rtl){
+                            right: 16px;
+                        }
                         top: 18px;
                         font-size: 22px;
                     }
@@ -142,11 +180,29 @@
                 }
 
                 &.active {
-                    border-left: 5px solid @brand-secondary;
+                    border-color: @brand-secondary;
+                    & when(@rtl = false){
+                        border-left: solid 5px;
+                    }
+                    & when(@rtl){
+                        border-right: solid 5px;
+                    }
+
 
                     a {
                         color: @color-sidebarnav-tree-active-text;
-                        padding-right: 20px;
+                        & when(@rtl = false){
+                            padding-left: 50px;
+                            i{
+                                left: 11px;
+                            }
+                        }
+                        & when(@rtl){
+                            padding-right: 50px;
+                            i{
+                                right: 11px;
+                            }
+                        }
 
                         span.header {
                             color: @color-sidebarnav-tree-active-header;

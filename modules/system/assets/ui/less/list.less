@@ -140,15 +140,26 @@ table.table.data {
         }
 
         tr td:first-child {
-            border-left: 3px solid transparent;
-            padding-left: 22px;
+            & when(@rtl = false){
+                border-left: 3px solid transparent;
+                padding-left: 22px;
+            }
+            & when(@rtl){
+                border-right: 3px solid transparent;
+                padding-right: 22px;
+            }
         }
 
         tr.active td {
             color: @color-list-text-active;
 
             &:first-child {
-                border-left: 3px solid @color-list-stripe-active;
+                & when(@rtl = false){
+                    border-left: 3px solid @color-list-stripe-active;
+                }
+                & when(@rtl){
+                    border-right: 3px solid @color-list-stripe-active;
+                }
             }
         }
 
@@ -358,7 +369,7 @@ table.table.data {
     .list-checkbox {
         width: 52px;
         vertical-align: top;
-        border-right: 1px solid @color-list-border-light;
+        //border-right: 1px solid @color-list-border-light;
         .checkbox {
             margin: 0;
             min-height: 0;
@@ -368,20 +379,37 @@ table.table.data {
             top: -14px;
             left: -2px;
             label {
-                margin-right: 0;
+                & when(@rtl = false){
+                    margin-right: 0;
+                }
+                & when(@rtl){
+                    margin-left: 0;
+                }
                 margin-bottom: 0;
             }
         }
     }
 
-    tbody tr td.list-checkbox {
-        padding-left: (@padding-standard - 3); // Offset the border
-        padding-right: (@padding-standard - 17); // Offset the checkbox padding
+
+    & when(@rtl = false){
+        tbody tr td.list-checkbox {
+            padding-left: (@padding-standard - 3); // Offset the border
+            padding-right: (@padding-standard - 17); // Offset the checkbox padding
+        }
+        thead tr th.list-checkbox {
+            padding: 18px 0 0 @padding-standard;
+        }
+    }
+    & when(@rtl){
+        tbody tr td.list-checkbox {
+            padding-right: (@padding-standard - 3); // Offset the border
+            padding-left: (@padding-standard - 17); // Offset the checkbox padding
+        }
+        thead tr th.list-checkbox {
+            padding: 18px @padding-standard 0 0;
+        }
     }
 
-    thead tr th.list-checkbox {
-        padding: 18px 0 0 @padding-standard;
-    }
 
     //
     // Trees
