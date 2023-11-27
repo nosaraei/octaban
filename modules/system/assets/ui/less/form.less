@@ -75,14 +75,27 @@
 
     &.icon {
         background-repeat: no-repeat;
-        background-position: right -2px;
-        padding-right: 30px !important;
         background-image: url('@{image-path}/bitmap-icons.png');
 
-        &.plus { background-position: right -124px; }
-        &.search { background-position: right -84px; }
-        &.user { background-position: right -41px; }
-        &.lock { background-position: right 0; }
+        & when(@rtl = false){
+            background-position: right -2px;
+            padding-right: 30px !important;
+
+            &.plus { background-position: right -124px; }
+            &.search { background-position: right -84px; }
+            &.user { background-position: right -41px; }
+            &.lock { background-position: right 0; }
+        }
+        & when(@rtl){
+            background-position: left -2px;
+            padding-left: 30px !important;
+
+            &.plus { background-position: left -124px; }
+            &.search { background-position: left -84px; }
+            &.user { background-position: left -41px; }
+            &.lock { background-position: left 0; }
+        }
+
     }
 
     &.growable {
@@ -102,7 +115,12 @@
             }
 
             &.icon {
-                padding-right: 0 !important;
+                & when(@rtl = false){
+                    padding-right: 0 !important;
+                }
+                & when(@rtl){
+                    padding-left: 0 !important;
+                }
             }
         }
     }
@@ -478,7 +496,12 @@
         padding-right: 15px;
 
         &.clear-record {
-            right: 44px;
+            & when(@rtl = false){
+                right: 44px;
+            }
+            & when(@rtl){
+                left: -15px;
+            }
         }
 
         i {

@@ -607,7 +607,13 @@ nav#layout-mainmenu.navbar-mode-collapse {
     position: absolute;
     height: 100%;
     top: 0;
-    left: 0;
+    & when(@rtl = false){
+        left: 0;
+    }
+    & when(@rtl){
+        right: 0;
+    }
+
     margin: 0;
     background: @color-mainmenu-collapsed;
 
@@ -623,7 +629,8 @@ nav#layout-mainmenu.navbar-mode-collapse {
 
         ul {
             margin: 0;
-            padding: 5px 0 15px 15px;
+            //padding: 5px 0 15px 15px;
+            padding: 10px;
             overflow: hidden;
         }
 

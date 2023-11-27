@@ -37,8 +37,14 @@
 
     &.vertical {
         >.scrollbar-scrollbar {
-            right: 0;
-            margin-right: 5px;
+            & when(@rtl = false){
+                right: 0;
+                margin-right: 5px;
+            }
+            & when(@rtl){
+                left: 0;
+                margin-left: 5px;
+            }
             width: @scrollbar-thumb-size;
             .scrollbar-track {
                 height: 100%;

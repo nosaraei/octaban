@@ -102,7 +102,7 @@
         function hideMenu() {
             self.body.removeClass(self.options.bodyMenuOpenClass)
             self.wrapper.css({
-                'position': 'static',
+                'position': 'absolute',
                 'min-width': 0,
                 //'right': 0,
                 'height': '100%'
@@ -117,7 +117,8 @@
          */
         function closeMenu() {
             //self.wrapper.animate({'left': 0}, { duration: 200, queue: false})
-            self.menuPanel.animate({'width': 0}, { duration: 200, queue: false, complete: hideMenu })
+            hideMenu();
+            self.menuPanel.animate({'width': 0}, { duration: 200, queue: false})
             self.menuElement.animate({'width': 0}, { duration: 200, queue: false })
         }
     }

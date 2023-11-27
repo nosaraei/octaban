@@ -67,7 +67,7 @@
                                     <?php endif ?>
 
                                     <!-- Content -->
-                                    <div class="layout-row">
+                                    <div class="content-scroll">
                                         <?= Block::placeholder('body') ?>
                                     </div>
                                 </div>
