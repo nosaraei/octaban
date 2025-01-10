@@ -116,6 +116,8 @@ class User extends UserBase
             return $this->avatar->getThumb($size, $size, $options);
         }
 
+        return url('modules/backend/assets/images/default-avatar.png');
+
         return '//www.gravatar.com/avatar/' .
             md5(strtolower(trim($this->email))) .
             '?s='. $size .
