@@ -64,4 +64,20 @@ trait Resource
         return $query;
     }
 
+    public function scopeSorting($query, $request){
+
+        if($request->sort_by){
+            $sort_options = get_called_class()::$sortable;
+
+            if(isset($sort_options[$request->sort_by])){
+
+                $query->orderBy($request->sort_by, $request->sort_order ?: "DESC");
+
+            }
+
+        }
+
+        return $query;
+    }
+
 }
