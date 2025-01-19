@@ -80,6 +80,26 @@ class DateTime
     }
 
     /**
+     * Control user input datetime.
+     *
+     * @return Carbon\Carbon
+     */
+    public static function input($datetime){
+
+        return self::makeCarbon($datetime);
+    }
+
+    /**
+     * Prepare user output datetime.
+     *
+     * @return mixed
+     */
+    public static function output($datetime){
+
+        return self::makeCarbon($datetime);
+    }
+
+    /**
      * Converts a PHP date format to "Moment.js" format.
      * @param string $format
      * @return string
