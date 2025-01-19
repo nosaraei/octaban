@@ -700,15 +700,17 @@ return [
             "select_only_one_item" => "لطفا فقط یک :item را انتخاب کنید",
             "process_done" => "عملیات با موفقیت انجام شد",
             "process_failed" => "عملیات با خطا مواجه شد",
+            "not_authorized" => "احراز هویت انجام نشد",
+            "server_error" => "خطای سرور",
+            "not_found" => ":items مورد نظر یافت نشد",
+            "access_denied" => "شما دسترسی ندارید",
+            "success_update" => "با موفقیت به روز شد",
+            "success_done" => "با موفقیت انجام شد",
+            "success_deleted" => "با موفقیت حذف شد",
+            "success_registered" => "با موفقیت ثبت شد",
         ]
     ],
     "controller" => [
-        "literal" => [
-            "name" => "ثابت",
-            "group_name" => "ثابت ها",
-            "edit" => "ویرایش ثابت",
-            "list" => "ثابت ها"
-        ],
         "targetlinks" => [
             "name" => "لینک",
             "group_name" => "لینک ها",
