@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use System\Helpers\Utility;
+use System\Helpers\CoreUtils;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use October\Rain\Exception\ValidationException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -222,7 +222,7 @@ class ApiController extends \Illuminate\Routing\Controller
         $per_page = $request->per_page?:15;
         $total_count = $query->count();
 
-        $custom_fields = Utility::getValidList($request->custom_fields);
+        $custom_fields =  CoreUtils::collect($request->custom_fields);
 
         $query = $query->forPage($page, $per_page);
 
@@ -243,7 +243,7 @@ class ApiController extends \Illuminate\Routing\Controller
         $per_page = $request->per_page?:15;
         $total_count = $collections->count();
 
-        $custom_fields = Utility::getValidList($request->custom_fields);
+        $custom_fields = CoreUtils::collect($request->custom_fields);
 
         $collections = $collections->forPage($page, $per_page);
 
