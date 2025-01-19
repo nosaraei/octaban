@@ -1,7 +1,7 @@
 <?php namespace System\Traits;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use System\Helpers\Utility;
+use System\Helpers\CoreUtils;
 
 trait Resource
 {
@@ -23,7 +23,7 @@ trait Resource
 
     public function scopeBasicFilter($query, $request){
 
-        $filters = Utility::getValidList($request->basic_filters);
+        $filters = CoreUtils::collect($request->basic_filters);
 
         foreach ($filters as $filter_key => $filter) {
 

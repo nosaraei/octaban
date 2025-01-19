@@ -2,18 +2,18 @@
 
 class CoreUtils {
 
-    public static function collect($list)
+    public static function collect($list, $assoc = false)
     {
         if(!$list)
             return collect([]);
 
         if(is_array($list)){
             $list = json_encode($list);
-            $list = json_decode($list, false);
+            $list = json_decode($list, $assoc);
             return collect($list);
         }
 
-        $list = json_decode($list, false);
+        $list = json_decode($list, $assoc);
 
         if(!$list)
             return collect([]);
