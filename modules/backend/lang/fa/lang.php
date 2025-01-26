@@ -654,6 +654,9 @@ return [
         'move_please_select' => 'لطفا انتخاب نمایید',
         'move_button' => 'جابجایی',
     ],
+    "validator" => [
+        "invalid_mobile" => "شماره موبایل اشتباه است"
+    ],
     "global" => [
         "define" => "تعریف",
         "edit" => "ویرایش",
