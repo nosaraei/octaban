@@ -6,7 +6,7 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use System\Helpers\CoreUtils;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use October\Rain\Exception\ValidationException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Nosaraei\User\Api\Classes\Auth;
 use DB;
 
 class ApiController extends \Illuminate\Routing\Controller
@@ -181,17 +181,27 @@ class ApiController extends \Illuminate\Routing\Controller
 
             if(!$this->user){
 
-                $this->user = JWTAuth::parseToken()->authenticate();
+                if(PluginManager::instance()->exists("Nosaraei.User")){
+                    $this->user = Auth::authenticate();
+                }
+                else{
+                    throw new JWTException('Not found user plugin.');
+                }
             }
 
             return $this->user;
         }
         else if($name == "user_is_login"){
 
+            if(!PluginManager::instance()->exists("Nosaraei.User")){
+                return false;
+            }
+
             if(!$this->user){
 
                 try {
-                    $this->user = JWTAuth::parseToken()->authenticate();
+                    $this->user = Auth::authenticate();
+
                     return true;
                 }
                 catch (JWTException $ex){
