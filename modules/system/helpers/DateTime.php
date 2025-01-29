@@ -86,6 +86,9 @@ class DateTime
      */
     public static function input($datetime){
 
+        if(!$datetime)
+            return null;
+
         return self::makeCarbon($datetime);
     }
 

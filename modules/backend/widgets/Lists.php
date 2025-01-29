@@ -257,6 +257,7 @@ class Lists extends WidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['filterCallbacks'] = $this->filterCallbacks;
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['columns'] = $this->getVisibleColumns();
         $this->vars['columnTotal'] = $this->getTotalColumns();
@@ -1303,6 +1304,10 @@ class Lists extends WidgetBase
             return null;
         }
 
+        if(PluginManager::instance()->exists("Nosaraei.CalendarPro")){
+            return \Nosaraei\CalendarPro\Classes\ColumnType::evalDatetimeTypeValue($record, $column, $value);
+        }
+
         $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
@@ -1362,6 +1367,10 @@ class Lists extends WidgetBase
             return null;
         }
 
+        if(PluginManager::instance()->exists("Nosaraei.CalendarPro")){
+            return \Nosaraei\CalendarPro\Classes\ColumnType::evalDateTypeValue($record, $column, $value);
+        }
+
         $dateTime = $this->validateDateTimeValue($value, $column);
 
         if ($column->format !== null) {
@@ -1416,6 +1425,10 @@ class Lists extends WidgetBase
     {
         if ($value === null) {
             return null;
+        }
+
+        if(PluginManager::instance()->exists("Nosaraei.CalendarPro")){
+            return \Nosaraei\CalendarPro\Classes\ColumnType::evalTimetenseTypeValue($record, $column, $value);
         }
 
         $dateTime = $this->validateDateTimeValue($value, $column);

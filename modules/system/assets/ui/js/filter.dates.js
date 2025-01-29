@@ -116,15 +116,18 @@
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover">       \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
-                                <div class="input-with-icon right-align">                                               \
+                                <div class="input-with-icon ' + (rtl ? 'left' : 'right') + '-align">                                               \
                                     <i class="icon icon-calendar-o"></i>                                                \
                                     <input                                                                              \
                                         type="text"                                                                     \
                                         name="date"                                                                     \
-                                        value="{{ date }}"                                                              \
-                                        class="form-control align-right popup-allow-focus"                              \
+                                        id="date-picker-1"                                                              \
+                                        value="{{ dates.0 }}"                                                           \
+                                        class="form-control align-right popup-allow-focus picker"                       \
+                                        readonly                                                                        \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ date_placeholder }}" />                                         \
+                                    <input type="hidden" id="date-picker-1-alt" />                                      \
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
@@ -148,27 +151,33 @@
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover --range"> \
                         <div class="filter-search loading-indicator-container size-input-text">                           \
                             <div class="field-datepicker">                                                                \
-                                <div class="input-with-icon right-align">                                                 \
+                                <div class="input-with-icon ' + (rtl ? 'left' : 'right') + '-align">                                                 \
                                     <i class="icon icon-calendar-o"></i>                                                  \
                                     <input                                                                                \
                                         type="text"                                                                       \
+                                        id="date-picker-1"                                                              \
                                         name="date"                                                                       \
-                                        value="{{ date }}"                                                                \
-                                        class="form-control align-right popup-allow-focus"                                \
+                                        value="{{ dates.0 }}"                                                              \
+                                        class="form-control align-right popup-allow-focus picker"                       \
+                                        readonly                                                                        \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ after_placeholder }}" />                                          \
+                                    <input type="hidden" id="date-picker-1-alt" />                                      \
                                 </div>                                                                                    \
                             </div>                                                                                        \
                             <div class="field-datepicker">                                                                \
-                                <div class="input-with-icon right-align">                                                 \
+                                <div class="input-with-icon ' + (rtl ? 'left' : 'right') + '-align">                                                 \
                                     <i class="icon icon-calendar-o"></i>                                                  \
                                     <input                                                                                \
                                         type="text"                                                                       \
+                                        id="date-picker-2"                                                              \
                                         name="date"                                                                       \
-                                        value="{{ date }}"                                                                \
-                                        class="form-control align-right popup-allow-focus"                                \
+                                        value="{{ dates.1 }}"                                                              \
+                                        class="form-control align-right popup-allow-focus picker"                         \
+                                        readonly                                                                          \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
+                                    <input type="hidden" id="date-picker-2-alt" />                                  \
                                 </div>                                                                                    \
                             </div>                                                                                        \
                             <div class="filter-buttons">                                                                  \
@@ -189,6 +198,12 @@
         var self = this,
             scopeName = $scope.data('scope-name'),
             data = this.scopeValues[scopeName]
+
+        if(data == undefined)
+            data = $scope.data("scope-data")
+
+        if(data.date)
+            data.dates = [data.date]
 
         data = $.extend({}, data, {
             filter_button_text: this.getLang('filter.dates.filter_button_text'),
@@ -218,6 +233,9 @@
             scopeName = $scope.data('scope-name'),
             data = this.scopeValues[scopeName]
 
+        if(data == undefined)
+            data = $scope.data("scope-data");
+
         data = $.extend({}, data, {
             filter_button_text: this.getLang('filter.dates.filter_button_text'),
             reset_button_text: this.getLang('filter.dates.reset_button_text'),
@@ -233,6 +251,7 @@
         $scope.ocPopover({
             content: Mustache.render(this.getPopoverRangeTemplate(), data),
             modal: false,
+            useAnimation: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
@@ -245,7 +264,7 @@
     FilterWidget.prototype.initDatePickers = function (isRange) {
         var self = this,
             scopeData = this.$activeScope.data('scope-data'),
-            $inputs = $('.field-datepicker input', '#controlFilterPopoverDate'),
+            $inputs = $('.field-datepicker input.picker', '#controlFilterPopoverDate'),
             data = this.scopeValues[this.activeScopeName]
 
         if (!data) {
@@ -309,7 +328,7 @@
                     var after = dates[0] ? moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat) : '-∞',
                         before = dates[1] ? moment.tz(dates[1], this.appTimezone).tz(this.timezone).format(dateFormat) : '∞'
 
-                    $setting.text(after + ' → ' + before)
+                    $setting.text(after + (rtl ? ' ← ' : ' → ') + before)
                 } else {
                     reset = true
                 }
@@ -337,7 +356,7 @@
             dates = []
 
         if (!isReset) {
-            var datepickers = $('.field-datepicker input', '#controlFilterPopoverDate')
+            var datepickers = $('.field-datepicker input.picker', '#controlFilterPopoverDate')
 
             datepickers.each(function (index, datepicker) {
                 var date = $(datepicker).data('pikaday').toString('YYYY-MM-DD')
