@@ -1,0 +1,14 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+  target_type:
+    label: backend::lang.model_name.targetlink.target_type
+    span: left
+    type: dropdown
+    default: url
+
+  main_value:
+    span: right
+    dependsOn: target_type

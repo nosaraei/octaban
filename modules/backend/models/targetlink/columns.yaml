@@ -1,0 +1,9 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+  description:
+    label: backend::lang.controller.targetlinks.name
+    sortable: false
+    searchable: true
