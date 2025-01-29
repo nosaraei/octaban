@@ -64,12 +64,19 @@
                                         <div class="control-breadcrumb">
                                             <?= $breadcrumbContent ?>
                                         </div>
-                                    <?php endif ?>
 
-                                    <!-- Content -->
-                                    <div class="content-scroll">
-                                        <?= Block::placeholder('body') ?>
-                                    </div>
+                                        <!-- Content -->
+                                        <div class="content-scroll with-breadcrumb">
+                                            <?= Block::placeholder('body') ?>
+                                        </div>
+                                    <?php else: ?>
+
+                                        <!-- Content -->
+                                        <div class="content-scroll">
+                                            <?= Block::placeholder('body') ?>
+                                        </div>
+
+                                    <?php endif ?>
                                 </div>
 
                             </div>

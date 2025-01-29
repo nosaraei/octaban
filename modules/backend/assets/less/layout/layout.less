@@ -58,10 +58,14 @@ body {
 
 .content-scroll{
     margin: -20px;
-    padding: 20px;
+    padding: 20px 20px 0 20px; // 0 for .form-buttons padding-bottom
     overflow-x: hidden;
     overflow-y: auto;
     height: ~"calc(100% + 20px)";
+
+    &.with-breadcrumb{
+        height: ~"calc(100% - 24px)"; // 44px breadcrumb height
+    }
 
     /* width */
     &::-webkit-scrollbar {
