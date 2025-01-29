@@ -1158,7 +1158,7 @@ class Form extends WidgetBase
      */
     protected function showFieldLabels($field)
     {
-        if (in_array($field->type, ['checkbox', 'switch', 'section'])) {
+        if (in_array($field->type, ['checkbox', 'section'])) {
             return false;
         }
 
@@ -1209,6 +1209,9 @@ class Form extends WidgetBase
                  */
                 if ($field->type === 'number') {
                     $value = !strlen(trim($value)) ? null : (float) $value;
+                }
+                else if($field->type === 'dropdown' && !$value){
+                    $value = null;
                 }
 
                 $this->dataArraySet($result, $parts, $value);
