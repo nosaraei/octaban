@@ -1,6 +1,7 @@
 <?php namespace System\Helpers;
 
 use October\Rain\Exception\ValidationException;
+use Config;
 
 class Validator
 {
@@ -71,5 +72,12 @@ class Validator
         $string = str_replace('۹', '9', $string);
 
         return $string;
+    }
+
+    public static function webview($html){
+
+        $html = str_replace('"/storage/app/media/', '"' . Config::get("app.url") . '/storage/app/media/', $html);
+
+        return $html;
     }
 }
