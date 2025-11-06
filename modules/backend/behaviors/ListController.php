@@ -281,6 +281,10 @@ class ListController extends ControllerBehavior
         ));
         $this->controller->bodyClass = 'slim-container';
         $this->makeLists();
+
+        if($this->getConfig("defaultPage") == true){
+            return $this->makePartial("~/modules/backend/views/controller-actions/index.php");
+        }
     }
 
     /**

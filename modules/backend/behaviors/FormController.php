@@ -218,6 +218,16 @@ class FormController extends ControllerBehavior
             $model = $this->controller->formExtendModel($model) ?: $model;
 
             $this->initForm($model);
+
+            if($this->getConfig("create[defaultPage]") == true){
+                $controller_path = strtolower(str_replace("\\", "/", str_replace("\\Controllers\\", "\\", get_class($this->controller))));
+
+                return $this->makePartial("~/modules/backend/views/controller-actions/create.php", [
+                    "controller_path" => $controller_path,
+                    "plural_name" => $model::pluralName()
+                ]);
+            }
+
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -287,6 +297,15 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
+
+            if($this->getConfig("update[defaultPage]") == true){
+                $controller_path = strtolower(str_replace("\\", "/", str_replace("\\Controllers\\", "\\", get_class($this->controller))));
+
+                return $this->makePartial("~/modules/backend/views/controller-actions/update.php", [
+                    "controller_path" => $controller_path,
+                    "plural_name" => $model::pluralName()
+                ]);
+            }
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -384,6 +403,15 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
+
+            if($this->getConfig("preview[defaultPage]") == true){
+                $controller_path = strtolower(str_replace("\\", "/", str_replace("\\Controllers\\", "\\", get_class($this->controller))));
+
+                return $this->makePartial("~/modules/backend/views/controller-actions/preview.php", [
+                    "controller_path" => $controller_path,
+                    "plural_name" => $model::pluralName()
+                ]);
+            }
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
