@@ -19,7 +19,7 @@ return [
     |
     */
 
-    'decompileBackendAssets' => false,
+    'decompileBackendAssets' => true,
 
     /*
     |--------------------------------------------------------------------------
