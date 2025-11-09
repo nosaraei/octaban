@@ -33,3 +33,7 @@ package-lock.json
 
 # Ignore generated public directory from `winter:mirror public`
 public
+modules/backend/assets/less/winter-ltr.css
+modules/backend/assets/less/winter-rtl.css
+modules/system/assets/ui/storm-ltr.css
+modules/system/assets/ui/storm-rtl.css

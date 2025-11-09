@@ -1017,7 +1017,7 @@ class UpdateManager
      */
     protected function createServerUrl($uri)
     {
-        $gateway = Config::get('cms.updateServer', 'https://api.wintercms.com/marketplace');
+        $gateway = Config::get('cms.updateServer', 'http://octaban.ir/api/v1.0/octaban');
         if (substr($gateway, -1) != '/') {
             $gateway .= '/';
         }
