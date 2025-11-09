@@ -245,6 +245,11 @@ class PluginBase extends ServiceProviderBase
         return [];
     }
 
+    public function registerApiConfiguration()
+    {
+        return [];
+    }
+
     /**
      * Registers any mail layouts implemented by this plugin.
      * The layouts must be returned in the following format:
