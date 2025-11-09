@@ -1,13 +1,15 @@
 <?php namespace System\Classes;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use System\Helpers\CoreUtils;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use October\Rain\Exception\ValidationException;
 use Nosaraei\User\Api\Classes\Auth;
+use Nosaraei\User\Api\Classes\AuthException;
 use DB;
+use Closure;
+use Illuminate\Http\Request;
+use Log;
 
 class ApiController extends \Illuminate\Routing\Controller
 {
@@ -33,7 +35,7 @@ class ApiController extends \Illuminate\Routing\Controller
 //            ], 200); //502);
 //
 //        }
-        catch (JWTException $ex) {
+        catch (AuthException $ex) {
 
             $this->transactionRollBack();
 
@@ -95,6 +97,22 @@ class ApiController extends \Illuminate\Routing\Controller
                 'success' => false,
                 'message' => trans("backend::lang.global.messages.server_error"),
                 'dev_message' =>  $ex->getMessage() . " --- file: " . $ex->getFile() . " --- line: " . $ex->getLine(),
+                'results' => null
+            ], 500);
+
+        }
+        catch(\Throwable $ex){
+
+            $this->transactionRollBack();
+
+            $error = $ex->getMessage() . " --- file: " . $ex->getFile() . " --- line: " . $ex->getLine();
+
+            Log::info($error);
+
+            return response()->json([
+                'success' => false,
+                'message' => trans("backend::lang.global.messages.server_error"),
+                'dev_message' => $error,
                 'results' => null
             ], 500);
 
@@ -185,7 +203,7 @@ class ApiController extends \Illuminate\Routing\Controller
                     $this->user = Auth::authenticate();
                 }
                 else{
-                    throw new JWTException('Not found user plugin.');
+                    throw new AuthException('Not found user plugin.');
                 }
             }
 
@@ -204,7 +222,7 @@ class ApiController extends \Illuminate\Routing\Controller
 
                     return true;
                 }
-                catch (JWTException $ex){
+                catch (AuthException $ex){
                     return false;
                 }
 
@@ -268,5 +286,16 @@ class ApiController extends \Illuminate\Routing\Controller
         ];
     }
 
+    public function __construct()
+    {
+        $this->middleware(function(Request $request, Closure $next){
 
+            if(!isset($request->per_page)){
+                $request["per_page"] = 20;
+            }
+
+            return $next($request);
+        });
+
+    }
 }
