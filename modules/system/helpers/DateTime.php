@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use DateTime as PhpDateTime;
 use InvalidArgumentException;
 use Exception;
+use Config;
 
 class DateTime
 {
@@ -89,7 +90,7 @@ class DateTime
         if(!$datetime)
             return null;
 
-        return self::makeCarbon($datetime);
+        return self::makeCarbon($datetime)->setTimezone(Config::get('app.timezone'));
     }
 
     /**
