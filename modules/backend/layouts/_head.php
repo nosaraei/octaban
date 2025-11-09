@@ -1,7 +1,7 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 <meta name="robots" content="noindex">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="app-timezone" content="<?= e(Config::get('app.timezone')) ?>">
 <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
 <meta name="backend-timezone" content="<?= e(Backend\Models\Preference::get('timezone')) ?>">
@@ -51,11 +51,10 @@ $scripts = [
     Url::asset('modules/backend/assets/ui/js/build/vendor.js'),
     Url::asset('modules/backend/assets/ui/js/build/backend.js'),
 ];
-if(Config::get('develop.decompileBackendAssets', false)){
+if (Config::get('develop.decompileBackendAssets', false)) {
     $scripts = array_merge($scripts, Backend::decompileAsset('modules/system/assets/ui/storm.js'));
     $scripts = array_merge($scripts, Backend::decompileAsset('assets/js/winter.js', true));
-}
-else{
+} else {
     $scripts = array_merge($scripts, [Url::asset('modules/system/assets/ui/storm-min.js')]);
     $scripts = array_merge($scripts, [Backend::skinAsset('assets/js/winter-min.js')]);
 }
@@ -65,16 +64,23 @@ $scripts = array_merge($scripts, [
     Backend::skinAsset('assets/js/winter.tabformexpandcontrols.js'),
     Backend::skinAsset('assets/js/bulk-actions.js'),
 ]);
+foreach ($scripts as $script) {
+    $this->addJs($script, [
+        'build' => 'core',
+        'order' => 1,
+    ]);
+}
+foreach ($styles as $style) {
+    $this->addCss($style, [
+        'build' => 'core',
+        'order' => 1,
+    ]);
+}
 ?>
 
 <?php foreach ($styles as $style): ?>
     <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="stylesheet" importance="high">
     <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="preload" as="style" importance="high">
-<?php endforeach; ?>
-
-<?php foreach ($scripts as $script): ?>
-    <script data-cfasync="false" src="<?= $script . '?v=' . $coreBuild; ?>" importance="high"></script>
-    <link href="<?= $script . '?v=' . $coreBuild; ?>" rel="preload" as="script" importance="high">
 <?php endforeach; ?>
 
 <?php if (!Config::get('cms.enableBackendServiceWorkers', false)): ?>

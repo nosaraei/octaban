@@ -1,4 +1,6 @@
-<?php namespace {{studly_author}}\{{studly_plugin}}\Console;
+<?php
+
+namespace {{ plugin_namespace }}\Console;
 
 use Winter\Storm\Console\Command;
 
@@ -19,7 +21,7 @@ class {{studly_name}} extends Command
     /**
      * @var string The console command description.
      */
-    protected $description = 'No description provided yet...';
+    protected $description = '{{ description }}';
 
     /**
      * Execute the console command.

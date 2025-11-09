@@ -1,0 +1,69 @@
+name: Manifest
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+concurrency:
+  group: manifest-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  updateManifest:
+    name: Update manifest
+    runs-on: ubuntu-latest
+    env:
+      phpVersion: "8.4"
+      extensions: curl, fileinfo, gd, mbstring, openssl, pdo, pdo_sqlite, sqlite3, xml, zip
+      key: winter-cms-cache-develop
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.phpVersion }}
+          extensions: ${{ env.extensions }}
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --no-scripts
+
+      - name: Download manifest
+        run: wget -O builds.json https://github.com/wintercms/meta/raw/master/manifest/builds.json
+
+      - name: Run manifest
+        run: php artisan winter:manifest builds.json
+
+      - name: Create artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: winter-manifest
+          path: builds.json
+
+  commitManifest:
+    name: Commit manifest
+    runs-on: ubuntu-latest
+    needs: updateManifest
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v4
+        with:
+          repository: wintercms/meta
+          ref: master
+          token: ${{ secrets.WINTER_BOT_TOKEN }}
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: winter-manifest
+          path: manifest
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update manifest
+          commit_user_name: Winter Bot
+          commit_user_email: 80384029+WinterCMSBot@users.noreply.github.com
