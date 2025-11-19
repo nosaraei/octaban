@@ -11,6 +11,7 @@ use Winter\Storm\Support\Facades\Config;
 use Winter\Storm\Support\Facades\File;
 use Winter\Storm\Support\Facades\Html;
 use Winter\Storm\Support\Facades\Url;
+use App;
 
 /**
  * Backend Helper
